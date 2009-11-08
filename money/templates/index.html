@@ -1,0 +1,89 @@
+{% extends 'base_site.html' %}
+
+{% block css %}
+#divCaixa ul, #divTags ul, #divCredores ul, #divFormasPagamento ul {
+  padding: 5px;
+  margin: 5px;
+}
+
+#divCaixa a:link, #divTags a:link, #divCredores a:link, #divFormasPagamento a:link {
+  text-decoration: none;
+  color: black;
+}
+{% endblock %}
+
+{% block static %}
+{{ block.super }}
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/apps/money.js"></script>
+
+<!-- Jquery Autocomplete para tags -->
+<!-- <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/js/jquery/jquery.autocomplete.css">
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/lib/jquery.bgiframe.min.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/lib/jquery.ajaxQueue.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery/jquery.autocomplete.js"></script>
+-->
+{% endblock %}
+
+{% block js_init %}
+{{ block.super }}
+var params_inicial = {
+    id: 'Inicial',
+    title: '',
+    datastoreUrl: URL_MONEY_LISTA,
+};
+showGridLancamento(params_inicial);
+/*
+var data = "{% for item in tags %}{{ item.name }} {% endfor %}".split(" ");
+console.log($("teste"));
+$("input[name=tags]").autocomplete(data, {
+    width: 150,
+    max: 10,
+    highlight: false,
+    multiple: true,
+    multipleSeparator: ", ",
+    scroll: true,
+    scrollHeight: 300,
+    matchContains: true,
+    autoFill: true,
+});*/
+{% endblock %}
+
+{% block main %}
+
+<div id="divCaixa" class="x-hide-display">
+  <ul>
+  {% for item in caixas %}
+    <li>&bull; <a href="#" onclick="lancamentosPorCaixa({{ item.id }})">{{ item }}</a></li>
+  {% endfor %}
+  </ul>
+</div>
+
+<div id="divTags" class="x-hide-display">
+  <ul>
+  {% for item in tags %}
+    <li>&bull; <a href="#" onclick="lancamentosPorTag('{{ item.slug }}')">{{ item }}</a></li>
+  {% endfor %}
+  </ul>
+
+</div>
+
+<div id="divCredores" class="x-hide-display">
+  <ul>
+  {% for item in credores %}
+    <li>&bull; <a href="#" onclick="lancamentosPorCredor({{ item.id }})">{{ item.credor }}</a></li>
+  {% endfor %}
+  </ul>
+</div>
+
+<div id="divFormasPagamento" class="x-hide-display">
+  <ul>
+  {% for item in formaspagamento %}
+    <li>&bull; <a href="#" onclick="lancamentosPorFormaPagamento({{ item.id }})">{{ item }}</a></li>
+  {% endfor %}
+  </ul>
+</div>
+
+<div id="divResumo">
+Teste
+</div>
+{% endblock %}

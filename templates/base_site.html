@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block js_init %}
+{{ block.super }}
+  //Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+
+
+  /*
+   ************* Layout *************
+   */
+  var viewport = new Ext.Viewport({
+    id: 'viewport',
+    layout: 'border',
+    renderTo: Ext.getBody(),
+    items: [/*{
+      region: 'north',
+      xtype: 'toolbar',
+      border: false,
+      height: 27,
+      items: [{
+
+        text: 'Arquivo',
+        menu: [{
+          text: 'Alterar senha',
+          iconCls: 'password-icon',
+          cls:'x-btn-text-icon',
+        }, {
+          text: 'Sair ({{ user }})',
+          iconCls: 'exit-icon',
+          cls:'x-btn-text-icon',
+          handler: function() {
+              window.location.href = URL_AUTH_LOGOUT;
+          }
+        }, {
+          xtype: 'tbfill'
+        }]
+      }]
+    },*/ {
+      region: 'west',
+      title: 'Filtro',
+      minWidth: 200,
+      width: 250,
+      split: true,
+      border: false,
+      collapsible: true,
+      layout: 'accordion',
+      items: [{
+        title: 'Caixa',
+        border: true,
+        contentEl: Ext.get('divCaixa'),
+      }, {
+        title: 'Tags',
+        border: true,
+        contentEl: Ext.get('divTags'),
+      }, {
+        title: 'Credores',
+        border: true,
+        contentEl: Ext.get('divCredores'),
+      }, {
+        title: 'Formas de Pagamento',
+        border: true,
+        contentEl: Ext.get('divFormasPagamento'),
+      }]
+
+    }, {
+      region: 'center',
+      id: 'tbMain',
+      xtype: 'tabpanel',
+      autoScroll: true,
+      activeTab: 0,
+      border: false,
+      autoScroll: true,
+      items: [{
+        title: 'Resumo',
+        contentEl: 'divResumo'
+      }]
+
+    }]
+  });
+
+{% endblock %}
+
+{% block main %}
+
+
+
+{% endblock %}

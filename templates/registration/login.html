@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block js %}
+Ext.onReady( function() {
+
+  var login_form = new Ext.FormPanel({
+    url: '.',
+    frame: true,
+    standardSubmit: true,
+    items: [{
+      xtype: 'textfield',
+      fieldLabel: '{{ form.username.label }}',
+      name: '{{ form.username.name }}',
+    },{
+      xtype: 'textfield',
+      inputType: 'password',
+      fieldLabel: '{{ form.password.label }}',
+      name: '{{ form.password.name }}'
+    }],
+    buttons: [{
+      text: 'Ok',
+      handler: function() {
+        login_form.getForm().submit({
+          method:'POST',
+          waitTitle:'Connecting',
+          waitMsg:'Sending data...',
+          success: function(f,a) {
+            Ext.Msg.alert('Success', 'It worked');
+          },
+          failure: function(f,a) {
+            Ext.Msg.alert('Warning', 'Error');
+          }
+        });
+
+      }
+    }]
+  });
+
+  var win = new Ext.Window({
+    title:'Login',
+    modal: false,
+    closable: false,
+    resizable: false,
+    layout: 'form',
+    width: 300,
+    height: 130,
+    items: login_form,
+  }).show();
+
+
+  win.add(login_form);
+  win.show();
+
+  {% if form.errors %}
+    Ext.Msg.alert('Error','<span style="color:red">Usuário ou senha incorretos.</span>');
+  {% endif %}
+});
+
+{% endblock %}
+
+{% block main %}
+
+
+{% endblock %}
