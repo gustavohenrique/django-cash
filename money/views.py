@@ -379,7 +379,7 @@ class LancamentoRest(RestView):
                     msg = '%s, %s' % (field.label, field.errors[0].replace('<ul class="errorlist"><li>',''))
                     break
             #json.update({'rows': [{'id': 0, 'desc': msg}]})
-            json.update({'msg': msg})
+            json.update({'status': 'error', 'msg': msg})
             
         return JsonHttpResponse(json)
 
