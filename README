@@ -1,0 +1,25 @@
+Django Cash - Sistema Pessoal para Controle Financeiro
+
+
+1. O que é?
+
+Sistema utilizando Django + ExtJS para controle de gastos pessoais.
+
+
+2. A quem se destina?
+
+Primeiramente ao autor. Iniciantes em Django e ExtJS podem ter algum interesse no código.
+
+
+3. Sobre
+
+Inicialmente criado como exercício para aprender ExtJS. Após insatisfacões com o GNUCash resolvi colocar os recursos básicos para meu próprio uso.
+
+
+4. Bugs Conhecidos
+
+- O ponto separador de milhar quando um valor com mais de 4 dígitos é exibido no grid.
+- Ao criar uma nova tag é necessário atualizar a página para aparecer no form de filtro.
+- A paging toolbar no grid nao funciona corretamente quando os resultados no grid sao obtidos atraves do filtro.
+- Não funciona corretamente no Chromium e provavelmente também no IE.
+
