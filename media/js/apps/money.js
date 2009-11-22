@@ -1,11 +1,11 @@
 /*
  * showGridLancamento
- * Exibe grid contendo os lancamentos cadastrados. No momento que a pagina
- * é carregada, exibde todos os lancamentos. Quando é escolhido algum filtro
- * então é criado um novo grid e inserido em outra aba do painel central.
+ * Exibe grid contendo os lancamentos cadastrados.
+ * No momento que a pagina é carregada, exibde todos os lancamentos.
+ * Quando é escolhido algum filtro então o conteúdo do grid é atualizado.
  */
 function showGridLancamento(params) {
-    // id unico, string ou int
+    // id unico, string ou int que vai ser usado para identificar componentes
     var id = params['id'];
     
     // titulo do grid que vai aparecer na tela
@@ -13,12 +13,6 @@ function showGridLancamento(params) {
     
     // url que retorna o conteudo a ser exibido no grid
     var datastoreUrl = params['datastoreUrl'];
-    
-    // id do grid formado por uma string + id do item clicado
-    //var datagridId = 'gridLancamento'+id;
-    
-    // Total de linhas exibidos no grid
-    var LINHAS_POR_GRID = 31;
     
     /*
      * Se o data grid nao existe, entao cria um novo
@@ -156,7 +150,7 @@ function showGridLancamento(params) {
                 cls:'x-btn-text-icon',
                 handler: function() {
                     var id = grid.getSelectionModel().getSelected().get('id');
-                    if (id > 0)
+                    if (id > 0 && ! Ext.getCmp('winLancamento'))
                         editLancamento(id);
                 }
             }, {
@@ -165,7 +159,7 @@ function showGridLancamento(params) {
                 cls:'x-btn-text-icon',
                 handler: function() {
                 var id = grid.getSelectionModel().getSelected().get('id');
-                if (id > 0)
+                if (id > 0 && ! Ext.getCmp('winLancamento'))
                     Ext.Msg.confirm('Confirmação', 'Tem certeza?', function(btn, text) {
                         if (btn == 'yes') {
                             url = URL_MONEY_DEL.replace('/0','/'+id);
@@ -173,7 +167,7 @@ function showGridLancamento(params) {
                                 url: url,
                                 method: 'DELETE',
                                 success: function() { grid.getStore().reload() },
-                                failure: function() { Ext.Msg.alert('Erro','Erro ao tentar excluir item com ID '+id); }
+                                failure: function() { Ext.Msg.alert('Erro','Problemas na comunica&ccedil;&atilde;o com o servidor.'); }
                             });
                         }
                     });
@@ -201,6 +195,9 @@ function showGridLancamento(params) {
 
 }
 
+/*
+ * Cria o form para cadastro ou edicao de lancamento.
+ */ 
 function _Form(params) {
     var id = params['id'];
     if (! Ext.getCmp('form'+id)) {
@@ -222,12 +219,15 @@ function _Form(params) {
                     if (form.getForm().isValid())
                         form.getForm().submit({
                             success: function(f,a) {
-                                //Ext.Msg.alert('Alert', 'Sucesso.');
-                                form.getForm().reset();
-                                Ext.getCmp('winLancamento').close();
+                                if (a.result.status == 'error')
+                                    Ext.Msg.alert('Erro', a.result.msg);
+                                else {
+                                    form.getForm().reset();
+                                    Ext.getCmp('winLancamento').close();
+                                }
                             },
                             failure: function(f,a){
-                                Ext.Msg.alert('Error', 'Erro ao cadastrar.<br>Verifique se os campos foram preenchidos corretamente.');
+                                Ext.Msg.alert('Erro', 'Erro na comunica&ccedil;&atilde;o com o servidor.');
                             }
                         });
                     else
@@ -236,6 +236,9 @@ function _Form(params) {
             }]
         });
     
+        /*
+         * Adiciona dinamicamente os campos ao form.
+         */ 
         Ext.Ajax.request({
             url: params['urlAjax'],
             success: function(r) {
@@ -256,6 +259,9 @@ function _Form(params) {
 }
 
 function _openWin(form) {
+    /*
+     * Exibe a janela contendo o form de cadastro ou de edicao.
+     */ 
     if (! Ext.getCmp('winLancamento'))
         var win = new Ext.Window({
             id: 'winLancamento',
@@ -273,13 +279,21 @@ function _openWin(form) {
 }
 
 function novoLancamento() {
-    var form = _Form({id: 'formNovoLancamento', urlForm: URL_MONEY_ADD, urlAjax: URL_MONEY_NEW, method: 'POST'});
-    _openWin(form);
-    //$('.brdatefield').setMask('99/99/9999');
+    if (! Ext.getCmp('winLancamento')) {
+        var form = _Form({id: 'formNovoLancamento', urlForm: URL_MONEY_ADD, urlAjax: URL_MONEY_NEW, method: 'POST'});
+        _openWin(form);
+    }
+    // Adicionar máscara (plugin jquery.meio.mask)
+    // $('.brdatefield').setMask('99/99/9999');
 }
 
 function editLancamento(id) {
-    var form = _Form({id: 'formEditLancamento', urlForm: URL_MONEY_UPD.replace('/0','/'+id) , urlAjax: URL_MONEY_EDIT+'?id='+id, method: 'PUT'});
-    _openWin(form);
+    /*
+     * Substitui o zero pelo id do lancamento na var URL_MONEY_UPD.
+     */ 
+    if (! Ext.getCmp('winLancamento')) {
+        var form = _Form({id: 'formEditLancamento', urlForm: URL_MONEY_UPD.replace('/0','/'+id) , urlAjax: URL_MONEY_EDIT+'?id='+id, method: 'PUT'});
+        _openWin(form);
+    }
 }
 

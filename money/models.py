@@ -6,6 +6,12 @@ import datetime
 
 
 class Conta(models.Model):
+    """
+    Conta bancária.
+    
+    Em caso de poupanca, o campo variacao pode ser usado.
+    """
+    
     nome = models.CharField(max_length=50, unique=True)
     agencia = models.CharField(max_length=6, blank=True, null=True)
     conta =  models.CharField(max_length=10, blank=True, null=True)
@@ -21,8 +27,11 @@ class Conta(models.Model):
         return self.nome
 
 
-
 class Credor(models.Model):
+    """
+    Credor ou fornecedor, entidade que pode cobrar pelo débito.
+    """
+    
     credor = models.CharField(max_length=200)
 
     class Meta:
@@ -34,7 +43,11 @@ class Credor(models.Model):
 
 
 class Caixa(models.Model):
-    caixa = models.CharField(max_length=50)
+    """
+    Similar a categoria.
+    """
+    
+    caixa = models.CharField(max_length=50, unique=True)
     
     class Meta:
         ordering = ['caixa']
@@ -44,7 +57,11 @@ class Caixa(models.Model):
         
         
 class FormaPagamento(models.Model):
-    forma_pagamento = models.CharField(max_length=200)
+    """
+    Forma de pagamento. Ex.: Dinheiro, Cartao, Cheque...
+    """
+    
+    forma_pagamento = models.CharField(max_length=200, unique=True)
 
     class Meta:
         ordering = ['forma_pagamento',]
@@ -52,8 +69,12 @@ class FormaPagamento(models.Model):
     def __unicode__(self):
         return self.forma_pagamento
 
-#from tags import aplicar_tags
+
 class Lancamento(models.Model):
+    """
+    Lancamentos realizados pelo usuario.
+    """
+    
     TIPO_CHOICES = (
         ('C',u'Crédito'),
         ('D',u'Débito'),
@@ -84,7 +105,10 @@ class Lancamento(models.Model):
                 self.valor = -self.valor
 
         super(Lancamento, self).save()
-        
+
+"""
+Utiliza a app plugável Tagging com o model Lancamento.
+"""
 import tagging
 tagging.register(Lancamento)
 

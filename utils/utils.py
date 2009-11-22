@@ -1,43 +1,13 @@
 # -*- coding: utf-8 -*-
-import time
-import datetime
-
-def str2datetime(s):
-    if s:
-        time_string = s.replace('T',' ')
-        time_format = '%Y-%m-%d %H:%M:%S'
-        mytime = time.strptime(time_string, time_format)
-        return datetime.datetime(*mytime[:6])
-    else:
-        return s
-
-def str2ymd(s):
-    if s:
-        time_format = '%Y-%m-%d'
-        mytime = time.strptime(s, time_format)
-        return datetime.datetime(*mytime[:6])
-    else:
-        return s
-
-def dmy2date(s):
-    try:
-        d = s.split('/')
-        return datetime.date(int(d[2]), int(d[1]), int(d[0]))
-    except:
-        return datetime.date.today()
-
-
-def ymd2str(d):
-    try:
-        s = str(d).split('-')
-        return '%s/%s/%s' % (s[2], s[1], s[0])
-    except:
-        return str(d)
-
-
 def moeda(numero):
     """
-    Retorna uma string no formato de moeda brasileira
+    Retorna uma string no formato de moeda brasileira.
+
+    No python 2.4 nao existe o metodo locale.currency.
+
+    >>> import locale
+    >>> locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    >>> locale.currency(1.99, grouping=True)
     """
 
     try:
@@ -71,8 +41,3 @@ def moeda(numero):
         return numero
 
 
-def bool2str(b):
-    if b == True:
-        return u'Sim'
-    else:
-        return u'Não'

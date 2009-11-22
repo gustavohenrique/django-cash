@@ -2,46 +2,40 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>MyCash - Sistema de Controle Financeiro</title>
+<meta name="author" content="Gustavo Henrique">
+<title>DjangoCash - Sistema Pessoal para Controle Financeiro</title>
 
 {% block static %}
-<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/js/extjs/resources/css/ext-all.css">
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery.meio.mask.min.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ext-jquery-adapter.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ext-all.js"></script>
-<!--
-<link rel="Stylesheet" type="text/css" href="{{ MEDIA_URL }}/js/extjs/ux/lovcombo/Ext.ux.form.LovCombo.css"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ux/lovcombo/Ext.ux.ThemeCombo.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ux/lovcombo/Ext.ux.form.LovCombo.js"></script>
--->
-<link rel="Stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/base.css">
-<link rel="Stylesheet" type="text/css" href="{{ MEDIA_URL }}/js/extjs/ux/multiselect/Multiselect.css">
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ux/multiselect/Multiselect.js"></script>
-<script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ux/RowExpander.js"></script>
-
-
-
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}/js/extjs/resources/css/ext-all.css">
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery.meio.mask.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ext-jquery-adapter.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ext-all.js"></script>
+    <link rel="Stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/base.css">
+    <link rel="Stylesheet" type="text/css" href="{{ MEDIA_URL }}/js/extjs/ux/multiselect/Multiselect.css">
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ux/multiselect/Multiselect.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ux/RowExpander.js"></script>
 {% endblock %}
 
 <style type="text/css">
-  {% block css %}{% endblock %}
+    {% block css %}{% endblock %}
 </style>
 
 <script type="text/javascript">
    /*
-    * URLs mappeds from django
+    * Mapeamento das URLs para poderem ser utilizadas
+    * nos arquivos .js
     */
-    var URL_AUTH_LOGOUT = '/auth/logout/';
     
-    var URL_MONEY_LISTA = '{% url money_list %}';
+    var URL_MONEY_LIST = '{% url money_list %}';
     var URL_MONEY_NEW = '{% url money_new %}';
     var URL_MONEY_ADD = '{% url money_add %}';
     var URL_MONEY_DEL = '{% url money_del id=0 %}';
     var URL_MONEY_EDIT = '{% url money_list %}';
     var URL_MONEY_UPD = '{% url money_upd id=0 %}';
-    var URL_MONEY_FILTER = '{% url money_filter %}';
-
+    
+    // Total de linhas exibidos no grid
+    var LINHAS_POR_GRID = {% if LINHAS_POR_GRID %}{{ LINHAS_POR_GRID }}{% else %}31{% endif %};
 
     {% block js %}{% endblock %}
 

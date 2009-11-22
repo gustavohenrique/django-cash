@@ -1,23 +1,25 @@
 # -*- coding: utf-8 -*-
-from django.forms.models import ModelForm
-from utils.extjs import ExtJSONEncoder
-from django.utils import simplejson
-from django.forms.fields import CharField, DateField, ChoiceField, IntegerField, BooleanField
-from django.forms.widgets import DateTimeInput, TextInput
-from django.forms import save_instance, Form
 from django.conf import settings
+from django.forms import save_instance, Form
+from django.forms.fields import CharField, DateField, ChoiceField, IntegerField, BooleanField
+from django.forms.models import ModelForm
+from django.forms.widgets import DateTimeInput, TextInput
+from django.utils import simplejson
+from django.utils.safestring import mark_safe
 
-from money.models import Lancamento, Conta
+# Imports do projeto
 from custom import *
+from money.models import Lancamento, Conta
+from utils.extjs import ExtJSONEncoder
 from tagging.forms import TagField
 from tagging.models import Tag
 
-from django.utils.safestring import mark_safe
-#from django.db.models import get_model
-
-
 
 class AutoCompleteTagInput(TextInput):
+    """
+    Adiciona o recurso de autocompletar tags no admin.
+    """
+    
     class Media:
         css = {
             'all': ('%s/js/jquery/jquery.autocomplete.css' % settings.MEDIA_URL,)
@@ -50,22 +52,18 @@ class AutoCompleteTagInput(TextInput):
             </script>''' % (name, tag_list))
 
 
-class ContaForm(ModelForm):
-    saldo_inicial = PositiveDecimalField()
-    
-    class Meta:
-        model = Conta
-
-
 class LancamentoForm(ModelForm):
+    """
+    Form para cadastro de lancamentos.
+    """
+    
     tags = TagField(max_length=50, label='Tags', required=False, widget=AutoCompleteTagInput())
-    vencimento = DateField(('%d/%m/%Y',), label='Data', widget=DateTimeInput(format='%d/%m/%Y'))
+    vencimento = DateField(('%d/%m/%Y',), label='Vencimento', widget=DateTimeInput(format='%d/%m/%Y'))
     tipo = ChoiceField(choices=Lancamento.TIPO_CHOICES)
     valor = PositiveDecimalField()
     
     class Meta:
         model = Lancamento
-        #exclude = ('id','cadastro','tag')
         fields = ['vencimento','desc','valor','tipo','forma_pagamento','credor','caixa','tags','pago']
     
     def __init__(self, *args, **kwargs):
@@ -74,10 +72,15 @@ class LancamentoForm(ModelForm):
             self.initial['tags'] = ' '.join([item.name for item in Tag.objects.get_for_object(self.instance)]) #()
 
     def as_ext(self):
+        # Converte os campos para o formato ExtJS
         return mark_safe(simplejson.dumps(self,cls=ExtJSONEncoder))
 
 
 class LancamentoFormEdit(LancamentoForm):
+    """
+    Os mesmos campos do LancamentoForm, apenas adicionando o campo id.
+    """
+    
     id = HiddenIdField() #(show_hidden_initial=True)
     
     class Meta:
@@ -89,6 +92,10 @@ class LancamentoFormEdit(LancamentoForm):
 
 
 class LancamentoFormFilter(Form):
+    """
+    Form apenas para validar os dados enviados para filtrar lancamentos.
+    """
+    
     cadastro = DateField(('%d/%m/%Y',), required=False, widget=DateTimeInput(format='%d/%m/%Y'))
     vencimento = DateField(('%d/%m/%Y',), required=False, widget=DateTimeInput(format='%d/%m/%Y'))
     credor = CharField(required=False)
@@ -96,10 +103,4 @@ class LancamentoFormFilter(Form):
     tipo = ChoiceField(choices=Lancamento.TIPO_CHOICES, required=False)
     pago = BooleanField(required=False)
     tags = TagField(max_length=50, required=False)
-    
-    
-    #class Meta:
-    #    model = Lancamento
-        #exclude = ('id','cadastro','tag')
-    #    fields = ['vencimento','desc','valor','tipo','forma_pagamento','credor','caixa','tags','pago']
     
