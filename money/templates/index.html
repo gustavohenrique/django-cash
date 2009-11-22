@@ -1,6 +1,7 @@
 {% extends 'base_site.html' %}
 
 {% block css %}
+{{ block.super }}
 #divCaixa ul, #divTags ul, #divCredores ul, #divFormasPagamento ul {
   padding: 5px;
   margin: 5px;
@@ -82,8 +83,31 @@ $("input[name=tags]").autocomplete(data, {
   {% endfor %}
   </ul>
 </div>
-
-<div id="divResumo">
-Teste
+EMAIL_USE_TLS=True
+<div id="divInicio" style="padding:10px;">
+  <ul>
+    <li>usu&aacute;rio: <b>{{ user }}</b> [<a href="{% url logout %}">sair</a>]</li>
+    <li>&uacute;ltimo acesso: <b>{{ user.last_login|date:"D, d \de M \de Y" }}</b></li>
+    <li><a href="/admin/">cadastrar caixa, credor e forma de pagamento</a></li>
+  </ul>
+  <br>
+  {% if contas_nao_pagas %}
+      <table cellpadding="4" cellspacing="0" border="0">
+          <tr>
+              <td width="100" bgcolor="gray">Vencimento</td>
+              <td width="400" bgcolor="gray">Descri&ccedil;&atilde;o</td>
+              <td width="90" bgcolor="gray">Valor</td>
+          </tr>
+          {% for item in contas_nao_pagas %}
+          <tr bgcolor="{% cycle '#efefef' 'white' %}">
+              <td>{{ item.vencimento|date:"d/m/Y" }} </td>
+              <td>{{ item.desc }} </td>
+              <td>R$ {{ item.valor|floatformat }} </td>
+          </tr>
+          {% endfor %}
+      </table>
+  {% else %}
+      <p>N&atilde;o h&aacute; contas &agrave; pagar.<br></p>
+  {% endif %}
 </div>
 {% endblock %}

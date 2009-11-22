@@ -10,11 +10,12 @@ from money.forms import *
 
 class ContaAdmin(ModelAdmin):
     list_display = ('nome','saldo_inicial')
+    form = ContaForm
 site.register(Conta, ContaAdmin)
 
 
 class CredorAdmin(ModelAdmin):
-    list_display = ('id','credor')
+    list_display = ['credor']
 site.register(Credor, CredorAdmin)
 
 
@@ -28,9 +29,9 @@ class LancamentoAdmin(ModelAdmin):
     list_display = ('vencimento','desc','valor','tipo','forma_pagamento','pago','caixa')
     form = LancamentoForm
     
-    def save_model(self, request, obj, form, change):
-        super(LancamentoAdmin, self).save_model(request, obj, form, change)
-        obj.tags = form.cleaned_data['tags']
+    #def save_model(self, request, obj, form, change):
+        #super(LancamentoAdmin, self).save_model(request, obj, form, change)
+        #obj.tags = form.cleaned_data['tags']
 
 site.register(Lancamento, LancamentoAdmin)
 

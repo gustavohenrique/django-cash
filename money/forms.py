@@ -2,11 +2,12 @@
 from django.forms.models import ModelForm
 from utils.extjs import ExtJSONEncoder
 from django.utils import simplejson
-from django.forms.fields import CharField, DateField, ChoiceField
+from django.forms.fields import CharField, DateField, ChoiceField, IntegerField, BooleanField
 from django.forms.widgets import DateTimeInput, TextInput
-from django.forms import save_instance
+from django.forms import save_instance, Form
+from django.conf import settings
 
-from money.models import Lancamento
+from money.models import Lancamento, Conta
 from custom import *
 from tagging.forms import TagField
 from tagging.models import Tag
@@ -19,13 +20,13 @@ from django.utils.safestring import mark_safe
 class AutoCompleteTagInput(TextInput):
     class Media:
         css = {
-            'all': ('js/jquery/jquery.autocomplete.css',)
+            'all': ('%s/js/jquery/jquery.autocomplete.css' % settings.MEDIA_URL,)
         }
         js = (
-            'js/jquery.js',
-            'js/jquery/lib/jquery.bgiframe.min.js',
-            'js/jquery/lib/jquery.ajaxQueue.js',
-            'js/jquery/jquery.autocomplete.js'
+            '%s/js/jquery.js' % settings.MEDIA_URL,
+            '%s/js/jquery/lib/jquery.bgiframe.min.js' % settings.MEDIA_URL,
+            '%s/js/jquery/lib/jquery.ajaxQueue.js' % settings.MEDIA_URL,
+            '%s/js/jquery/jquery.autocomplete.js' % settings.MEDIA_URL
         )
 
     def render(self, name, value, attrs=None):
@@ -47,6 +48,13 @@ class AutoCompleteTagInput(TextInput):
                 autoFill: true,
             });
             </script>''' % (name, tag_list))
+
+
+class ContaForm(ModelForm):
+    saldo_inicial = PositiveDecimalField()
+    
+    class Meta:
+        model = Conta
 
 
 class LancamentoForm(ModelForm):
@@ -79,6 +87,19 @@ class LancamentoFormEdit(LancamentoForm):
     def as_ext(self):
         return mark_safe(simplejson.dumps(self,cls=ExtJSONEncoder))
 
-# widget hidden form
-# converter data americana pra br
-# marcar checkbox extjs
+
+class LancamentoFormFilter(Form):
+    cadastro = DateField(('%d/%m/%Y',), required=False, widget=DateTimeInput(format='%d/%m/%Y'))
+    vencimento = DateField(('%d/%m/%Y',), required=False, widget=DateTimeInput(format='%d/%m/%Y'))
+    credor = CharField(required=False)
+    caixa = CharField(required=False)
+    tipo = ChoiceField(choices=Lancamento.TIPO_CHOICES, required=False)
+    pago = BooleanField(required=False)
+    tags = TagField(max_length=50, required=False)
+    
+    
+    #class Meta:
+    #    model = Lancamento
+        #exclude = ('id','cadastro','tag')
+    #    fields = ['vencimento','desc','valor','tipo','forma_pagamento','credor','caixa','tags','pago']
+    

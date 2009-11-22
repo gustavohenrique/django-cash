@@ -15,7 +15,7 @@ function showGridLancamento(params) {
     var datastoreUrl = params['datastoreUrl'];
     
     // id do grid formado por uma string + id do item clicado
-    var datagridId = 'gridLancamento'+id;
+    //var datagridId = 'gridLancamento'+id;
     
     // Total de linhas exibidos no grid
     var LINHAS_POR_GRID = 31;
@@ -23,12 +23,13 @@ function showGridLancamento(params) {
     /*
      * Se o data grid nao existe, entao cria um novo
      */ 
-    if (! Ext.getCmp(datagridId)) {
+    if (! Ext.getCmp('gridLancamento')) {
         
         /*
          * Dados a serem exibidos no grid
          */ 
         var store = new Ext.data.Store({
+            id: 'storeLancamento',
             autoLoad: false,
             restful: true,
             reader: new Ext.data.JsonReader({
@@ -38,9 +39,9 @@ function showGridLancamento(params) {
                 fields: [
                     { name: 'id' },
                     { name: 'vencimento', type: 'date', dateFormat: 'd/m/Y' },
-                    { name: 'desc', },
-                    { name: 'tipo', },
-                    { name: 'pago', },
+                    { name: 'desc' },
+                    { name: 'tipo' },
+                    { name: 'pago' },
                     { name: 'valor' },
                     { name: 'saldo' }
                 ]
@@ -72,7 +73,7 @@ function showGridLancamento(params) {
          *    novo, editar e deletar.
          */
         var grid = new Ext.grid.GridPanel({
-            id: ''+id,
+            id: 'gridLancamento',
             frame: false,
             border: true,
             title: 'Lançamentos '+title,
@@ -88,7 +89,7 @@ function showGridLancamento(params) {
                     autoWidth: true,
                 },
                 columns: [
-                    //new Ext.grid.RowNumberer(),
+                    new Ext.grid.RowNumberer(),
                     {
                         header: 'ID',
                         hidden: true
@@ -104,6 +105,7 @@ function showGridLancamento(params) {
                     }, {
                         header: 'Pago',
                         dataIndex: 'pago',
+                        //align: 'center',
                     }, {
                         header: 'Valor',
                         dataIndex: 'valor',
@@ -179,6 +181,7 @@ function showGridLancamento(params) {
                 }
             }]
         });
+        
       
         /*
          * Executa o datastore. O store consulta uma url e obtem os dados
@@ -262,7 +265,9 @@ function _openWin(form) {
             layout: 'fit',
             items: [ form, ],
             listeners: {
-                close: function() { Ext.getCmp('gridLancamento').getStore().reload(); }
+                close: function() { 
+                    Ext.getCmp('gridLancamento').getStore().reload();
+                }
             }
         }).show();
 }

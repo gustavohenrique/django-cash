@@ -14,4 +14,5 @@ urlpatterns = patterns('money.views',
 
 urlpatterns += patterns('',
     url(r'^lancamento/new/$', LancamentoView().new, name='money_new'),
+    url(r'^lancamento/filter/$', LancamentoView().filter, name='money_filter'),
 )

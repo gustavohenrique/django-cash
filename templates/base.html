@@ -10,9 +10,17 @@
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery.meio.mask.min.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ext-jquery-adapter.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ext-all.js"></script>
+<!--
+<link rel="Stylesheet" type="text/css" href="{{ MEDIA_URL }}/js/extjs/ux/lovcombo/Ext.ux.form.LovCombo.css"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ux/lovcombo/Ext.ux.ThemeCombo.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ux/lovcombo/Ext.ux.form.LovCombo.js"></script>
+-->
+<link rel="Stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/base.css">
+<link rel="Stylesheet" type="text/css" href="{{ MEDIA_URL }}/js/extjs/ux/multiselect/Multiselect.css">
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ux/multiselect/Multiselect.js"></script>
 <script type="text/javascript" src="{{ MEDIA_URL }}/js/extjs/ux/RowExpander.js"></script>
 
-<link rel="Stylesheet" type="text/css" href="{{ MEDIA_URL }}/css/base.css">
+
 
 {% endblock %}
 
@@ -25,31 +33,29 @@
     * URLs mappeds from django
     */
     var URL_AUTH_LOGOUT = '/auth/logout/';
+    
     var URL_MONEY_LISTA = '{% url money_list %}';
-  
     var URL_MONEY_NEW = '{% url money_new %}';
     var URL_MONEY_ADD = '{% url money_add %}';
     var URL_MONEY_DEL = '{% url money_del id=0 %}';
     var URL_MONEY_EDIT = '{% url money_list %}';
     var URL_MONEY_UPD = '{% url money_upd id=0 %}';
+    var URL_MONEY_FILTER = '{% url money_filter %}';
 
 
-  {% block js %}
+    {% block js %}{% endblock %}
 
-  {% endblock %}
+    Ext.onReady(function() {
+       Ext.BLANK_IMAGE_URL = '{{ MEDIA_URL }}/js/extjs/resources/images/default/s.gif';
 
-  Ext.onReady(function() {
-    Ext.BLANK_IMAGE_URL = '{{ MEDIA_URL }}/js/extjs/resources/images/default/s.gif';
+       {% block js_init %}
 
-    {% block js_init %}
-
-    {% endblock %}
-  });
+       {% endblock %}
+    });
 </script>
 
 </head>
 <body>
-{% block main %}{% endblock %}
-
+    {% block main %}{% endblock %}
 </body>
 </html>

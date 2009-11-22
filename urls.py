@@ -4,10 +4,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls), name='admin'),
 
     (r'^auth/login/','django.contrib.auth.views.login'),
-    (r'^auth/logout/','django.contrib.auth.views.logout_then_login'),
+    url(r'^auth/logout/','django.contrib.auth.views.logout_then_login', name='logout'),
 
     (r'^$', 'money.views.index'),
     (r'^money/', include('money.urls')),

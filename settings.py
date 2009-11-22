@@ -12,10 +12,10 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = os.path.join(PROJECT_ROOT_PATH, 'money.db')
-DATABASE_USER = ''
-DATABASE_PASSWORD = ''
+DATABASE_ENGINE = 'mysql' #'sqlite3'
+DATABASE_NAME = 'money' #os.path.join(PROJECT_ROOT_PATH, 'money.db')
+DATABASE_USER = 'usuario'
+DATABASE_PASSWORD = 'senha'
 DATABASE_HOST = ''
 DATABASE_PORT = ''
 
@@ -24,7 +24,7 @@ LANGUAGE_CODE = 'pt-br'
 SITE_ID = 1
 USE_I18N = True
 MEDIA_ROOT = os.path.join(PROJECT_ROOT_PATH, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media'
 ADMIN_MEDIA_PREFIX = '/media/admin/'
 SECRET_KEY = 's6bpekeq7yha#lg&=09ke_*66q_g7_upi+w-$$n%t4+gmnaz2l'
 
@@ -55,7 +55,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'money',
-    'tag',
     'tagging',
 )
 

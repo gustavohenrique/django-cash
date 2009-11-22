@@ -29,3 +29,13 @@ body {
 .eraser-icon {
   background: url(icons/eraser.png) no-repeat !important;
 }
+.ok-icon {
+  background: url(icons/ok.png) no-repeat !important;
+  width: 13px;
+  height: 13px;
+}
+.cancel-icon {
+  background: url(icons/cancel.png) no-repeat !important;
+  width: 13px;
+  height: 13px;
+}

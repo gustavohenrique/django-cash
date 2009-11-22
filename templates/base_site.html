@@ -1,82 +1,180 @@
 {% extends 'base.html' %}
 
+{% block css %}
+{{ block.super }}
+{% endblock %}
+
 {% block js_init %}
 {{ block.super }}
-  //Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+    //Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
 
-  /*
-   ************* Layout *************
-   */
-  var viewport = new Ext.Viewport({
-    id: 'viewport',
-    layout: 'border',
-    renderTo: Ext.getBody(),
-    items: [/*{
-      region: 'north',
-      xtype: 'toolbar',
-      border: false,
-      height: 27,
-      items: [{
-
-        text: 'Arquivo',
-        menu: [{
-          text: 'Alterar senha',
-          iconCls: 'password-icon',
-          cls:'x-btn-text-icon',
+    /*
+     ************* Layout *************
+     */
+    var viewport = new Ext.Viewport({
+        id: 'viewport',
+        layout: 'border',
+        renderTo: Ext.getBody(),
+        items: [{
+              id: 'frmFiltro',
+              region: 'west',
+              title: 'Filtro',
+              minWidth: 200,
+              width: 250,
+              split: true,
+              border: false,
+              frame: false,
+              bodyStyle: 'padding-left:5px;padding-top:5px;background:white',
+              collapsible: true,
+              autoScroll: true,
+              xtype: 'form',
+              labelWidth: 5,
+              defaultType: 'textfield',
+              defaults: { anchor: '90%' },
+              items: [{
+                    name: 'modo',
+                    value: 'filter',
+                    hidden: true
+                    
+                }, {
+                    xtype: 'datefield',
+                    format: 'd/m/Y',
+                    name: 'vencimento_inicial',
+                    emptyText: 'Vencimento de',
+                }, {
+                    xtype: 'datefield',
+                    format: 'd/m/Y',
+                    name: 'vencimento_final',
+                    emptyText: 'Vencimento até',
+                },
+                new Ext.form.ComboBox({
+                    fieldLabel: '',
+                    name: 'tipo',
+                    typeAhead: true,
+                    triggerAction: 'all',
+                    allowBlank: true,
+                    mode: 'local',
+                    emptyText: 'Tipo de Operação',
+                    listClass: 'x-combo-list-small',
+                    valueField: 'id',
+                    hiddenName: 'tipo',
+                    displayField: 'display',
+                    //editable: false,
+                    store: new Ext.data.SimpleStore({ fields: ['id', 'display'],  data : [{% for item in tipos %} [ "{{ item.id }}", "{{ item.tipo|safe }}" ], {% endfor %}] })
+                }),
+                new Ext.form.ComboBox({
+                    fieldLabel: '',
+                    name: 'forma_pagamento',
+                    typeAhead: true,
+                    triggerAction: 'all',
+                    allowBlank: true,
+                    mode: 'local',
+                    emptyText: 'Forma de Pagamento',
+                    listClass: 'x-combo-list-small',
+                    valueField: 'id',
+                    hiddenName: 'forma_pagamento',
+                    displayField: 'display',
+                    //editable: false,
+                    store: new Ext.data.SimpleStore({ fields: ['id', 'display'],  data : [{% for item in formaspagamento %} [ {{ item.id }}, "{{ item|safe }}" ], {% endfor %}] })
+                }),
+                new Ext.form.ComboBox({
+                    fieldLabel: '',
+                    name: 'credor',
+                    typeAhead: true,
+                    triggerAction: 'all',
+                    allowBlank: true,
+                    mode: 'local',
+                    emptyText: 'Credor',
+                    listClass: 'x-combo-list-small',
+                    valueField: 'id',
+                    hiddenName: 'credor',
+                    displayField: 'display',
+                    //editable: false,
+                    store: new Ext.data.SimpleStore({ fields: ['id', 'display'],  data : [{% for item in credores %} [ {{ item.id }}, "{{ item|safe }}" ], {% endfor %}] })
+                }),
+                new Ext.form.ComboBox({
+                    fieldLabel: '',
+                    name: 'caixa',
+                    typeAhead: true,
+                    triggerAction: 'all',
+                    allowBlank: true,
+                    mode: 'local',
+                    emptyText: 'Caixa',
+                    listClass: 'x-combo-list-small',
+                    valueField: 'id',
+                    hiddenName: 'caixa',
+                    displayField: 'display',
+                    //editable: false,
+                    store: new Ext.data.SimpleStore({ fields: ['id', 'display'],  data : [{% for item in caixas %} [ {{ item.id }}, "{{ item|safe }}" ], {% endfor %}] })
+                }),
+                new Ext.form.ComboBox({
+                    fieldLabel: '',
+                    name: 'pago',
+                    typeAhead: true,
+                    triggerAction: 'all',
+                    allowBlank: true,
+                    mode: 'local',
+                    emptyText: 'Pago?',
+                    listClass: 'x-combo-list-small',
+                    valueField: 'id',
+                    hiddenName: 'pago',
+                    displayField: 'display',
+                    //editable: false,
+                    store: new Ext.data.SimpleStore({ fields: ['id', 'display'],  data : [ ['S','Sim'], ['N','Não'] ] })
+                }),
+                new Ext.ux.form.MultiSelect({
+                    title: 'tags',
+                    fieldLabel: '',
+                    name: 'tags',
+                    height: 180,
+                    width: 210,
+                    allowBlank: true,
+                    mode: 'local',
+                    hideOnSelect: false,
+                    //store: new Ext.data.SimpleStore({ fields: ['id', 'display'],  data : [{% for item in tags %} [  "{{ item.slug|safe }}", "{{ item|safe }}" ], {% endfor %}] }),
+                    store: [{% for item in tags %} [ "{{ item.slug|safe }}", "{{ item|safe }}" ], {% endfor %}],
+                    tbar: [{
+                        text: 'Limpar Seleção',
+                        iconCls: 'eraser-icon',
+                        cls:'x-btn-text-icon',
+                        handler: function() {
+                            Ext.getCmp('frmFiltro').getForm().findField('tags').reset();
+                        }
+                    }]
+                })
+              ],
+              buttons: [{
+                  text: 'Limpar',
+                  handler: function() {
+                      Ext.getCmp('frmFiltro').getForm().reset();
+                  }
+              }, {
+                  text: 'Filtrar',
+                  handler: function() {
+                      var form = Ext.getCmp('frmFiltro').getForm();
+                      var store = Ext.getCmp('gridLancamento').getStore();
+                      if (form.isValid())
+                          store.reload({ params: form.getValues() });
+                      else
+                          Ext.Msg.alert('Erro','Preencha corretamente o formulário');
+                                           
+                  }
+              }]
         }, {
-          text: 'Sair ({{ user }})',
-          iconCls: 'exit-icon',
-          cls:'x-btn-text-icon',
-          handler: function() {
-              window.location.href = URL_AUTH_LOGOUT;
-          }
-        }, {
-          xtype: 'tbfill'
+          region: 'center',
+          id: 'tbMain',
+          xtype: 'tabpanel',
+          autoScroll: true,
+          activeTab: 0,
+          border: false,
+          autoScroll: true,
+          items: [{
+              title: 'Início',
+              contentEl: 'divInicio'
+          }] 
         }]
-      }]
-    },*/ {
-      region: 'west',
-      title: 'Filtro',
-      minWidth: 200,
-      width: 250,
-      split: true,
-      border: false,
-      collapsible: true,
-      layout: 'accordion',
-      items: [{
-        title: 'Caixa',
-        border: true,
-        contentEl: Ext.get('divCaixa'),
-      }, {
-        title: 'Tags',
-        border: true,
-        contentEl: Ext.get('divTags'),
-      }, {
-        title: 'Credores',
-        border: true,
-        contentEl: Ext.get('divCredores'),
-      }, {
-        title: 'Formas de Pagamento',
-        border: true,
-        contentEl: Ext.get('divFormasPagamento'),
-      }]
-
-    }, {
-      region: 'center',
-      id: 'tbMain',
-      xtype: 'tabpanel',
-      autoScroll: true,
-      activeTab: 0,
-      border: false,
-      autoScroll: true,
-      items: [{
-        title: 'Resumo',
-        contentEl: 'divResumo'
-      }]
-
-    }]
-  });
+    });
 
 {% endblock %}
 

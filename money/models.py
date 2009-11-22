@@ -6,20 +6,20 @@ import datetime
 
 
 class Conta(models.Model):
-    nome = models.CharField(max_length=50)
-    agencia = models.CharField(max_length=5, blank=True, null=True)
+    nome = models.CharField(max_length=50, unique=True)
+    agencia = models.CharField(max_length=6, blank=True, null=True)
     conta =  models.CharField(max_length=10, blank=True, null=True)
     variacao =  models.CharField(max_length=2, blank=True, null=True)
     saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)
 
     class Meta:
         ordering = ['nome',]
+        verbose_name = u'conta bancária'
+        verbose_name_plural = u'contas bancárias'
 
     def __unicode__(self):
         return self.nome
-        
-    def get_absolute_url(self):
-        return '%s'
+
 
 
 class Credor(models.Model):
@@ -27,6 +27,7 @@ class Credor(models.Model):
 
     class Meta:
         ordering = ['credor',]
+        verbose_name_plural = 'credores'
 
     def __unicode__(self):
         return self.credor

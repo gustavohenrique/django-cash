@@ -3,7 +3,7 @@
 {% block js %}
 Ext.onReady( function() {
 
-  var login_form = new Ext.FormPanel({
+  var loginForm = new Ext.FormPanel({
     url: '.',
     frame: true,
     standardSubmit: true,
@@ -20,7 +20,7 @@ Ext.onReady( function() {
     buttons: [{
       text: 'Ok',
       handler: function() {
-        login_form.getForm().submit({
+        loginForm.getForm().submit({
           method:'POST',
           waitTitle:'Connecting',
           waitMsg:'Sending data...',
@@ -44,11 +44,18 @@ Ext.onReady( function() {
     layout: 'form',
     width: 300,
     height: 130,
-    items: login_form,
+    items: loginForm,
   }).show();
+  
+  var nav = new Ext.KeyNav(loginForm.getForm().getEl(), {
+      'enter': function(e) {
+          this.getForm().submit();
+      },
+      scope: loginForm,
+  });
 
 
-  win.add(login_form);
+  win.add(loginForm);
   win.show();
 
   {% if form.errors %}
