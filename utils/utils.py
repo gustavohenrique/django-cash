@@ -12,32 +12,36 @@ def moeda(numero):
 
     try:
         contador = 0
-        preco_str = ''
-        num = numero.__str__()
-        if '.' in num:
-            preco, centavos = num.split('.')
+
+        if numero < 0:
+            numero = numero * -1
+
+        numero_em_string = numero.__str__()
+        if '.' in numero_em_string:
+            inteiro, centavos = numero_em_string.split('.')
         else:
-            preco = num
+            inteiro = numero_em_string
             centavos = '00'
 
-        tamanho = len(preco)
-        while tamanho > 0:
-            preco_str = preco_str + preco[tamanho-1]
+        numero_separador_virgula = ''
+        tamanho_algarismos_inteiro = len(inteiro)
+        while tamanho_algarismos_inteiro > 0:
+            numero_separador_virgula = numero_separador_virgula + inteiro[tamanho_algarismos_inteiro - 1]
             contador += 1
-            if contador == 3 and tamanho > 1:
-                preco_str = preco_str + '.'
+            if contador == 3 and tamanho_algarismos_inteiro > 1:
+                numero_separador_virgula += '.'
                 contador = 0
-            tamanho -= 1
+            tamanho_algarismos_inteiro -= 1
 
-        tamanho = len(preco_str)
-        str_preco = ''
-        while tamanho > 0:
-            str_preco = str_preco + preco_str[tamanho-1]
-            tamanho -= 1
-        #print str_preco
-        return "R$ %s,%s" % (str_preco.replace('-',''), centavos)
+        tamanho_algarismos_inteiro = len(numero_separador_virgula)
+        numero_formatado_como_moeda = ''
+        while tamanho_algarismos_inteiro > 0:
+            numero_formatado_como_moeda += numero_separador_virgula[tamanho_algarismos_inteiro - 1]
+            tamanho_algarismos_inteiro -= 1
+
+        return "R$ %s,%s" % (numero_formatado_como_moeda.replace('-',''), centavos)
     except:
-        #print numero
         return numero
+
 
 

@@ -25,6 +25,7 @@ site.register(FormaPagamento, FormaPagamentoAdmin)
 
 class LancamentoAdmin(ModelAdmin):
     list_display = ('vencimento','desc','valor','tipo','forma_pagamento','pago','caixa')
+    search_fields = ('desc',)
     form = LancamentoForm
 site.register(Lancamento, LancamentoAdmin)
 

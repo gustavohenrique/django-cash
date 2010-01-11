@@ -57,10 +57,11 @@
     <ul>
         <li>usu&aacute;rio: <b>{{ user }}</b> [<a href="{% url logout %}">sair</a>]</li>
         <li>&uacute;ltimo acesso: <b>{{ user.last_login|date:"D, d \de M \de Y" }}</b></li>
+        <li>saldo: <b>{{ saldo_total }}</b></li>
     </ul>
     
     <br>
-    <p><a href="/admin/">cadastrar caixa, credor e forma de pagamento</a></p>
+    <p><a href="/admin/" target="_blank">cadastrar caixa, credor e forma de pagamento</a></p>
     <br>
     
     {% if contas_nao_pagas %}

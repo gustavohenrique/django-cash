@@ -13,8 +13,8 @@ MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'
 DATABASE_NAME = os.path.join(PROJECT_ROOT_PATH, 'money.db')
-DATABASE_USER = 'usuario'
-DATABASE_PASSWORD = 'senha'
+DATABASE_USER = 'root'
+DATABASE_PASSWORD = ''
 DATABASE_HOST = ''
 DATABASE_PORT = ''
 
@@ -24,7 +24,7 @@ SITE_ID = 1
 USE_I18N = True
 MEDIA_ROOT = os.path.join(PROJECT_ROOT_PATH, 'media')
 MEDIA_URL = '/media'
-ADMIN_MEDIA_PREFIX = '/media/admin/'
+ADMIN_MEDIA_PREFIX = '/admin_media/'
 SECRET_KEY = 's6bpekeq7yha#lg&=09ke_*66q_g7_upi+w-$$n%t4+gmnaz2l'
 
 TEMPLATE_LOADERS = (
@@ -54,6 +54,8 @@ INSTALLED_APPS = (
     'tagging',
 )
 
+#CACHE_BACKEND = 'memcached://127.0.0.2/11211'
+
 LOGIN_URL = '/auth/login/'
 LOGOUT_URL = '/auth/logout/'
 LOGIN_REDIRECT_URL = '/money/'
@@ -62,3 +64,4 @@ DATETIME_FORMAT = 'd/m/Y - H:i:s'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 FORCE_LOWERCASE_TAGS = True
 LINHAS_POR_GRID = 31
+

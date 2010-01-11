@@ -1,1 +1,309 @@
-[{"pk": 2, "model": "money.conta", "fields": {"agencia": "", "variacao": "", "conta": "", "saldo_inicial": "15", "nome": "CC Banco do Brasil"}}, {"pk": 3, "model": "money.conta", "fields": {"agencia": "", "variacao": "", "conta": "", "saldo_inicial": "12", "nome": "CC Unibanco"}}, {"pk": 1, "model": "money.conta", "fields": {"agencia": "", "variacao": "", "conta": "", "saldo_inicial": "10", "nome": "Carteira"}}, {"pk": 4, "model": "money.credor", "fields": {"credor": "1001"}}, {"pk": 2, "model": "money.credor", "fields": {"credor": "Ampla"}}, {"pk": 3, "model": "money.credor", "fields": {"credor": "Claro"}}, {"pk": 1, "model": "money.credor", "fields": {"credor": "Oi Velox"}}, {"pk": 4, "model": "money.caixa", "fields": {"caixa": "Alimenta\u00e7\u00e3o"}}, {"pk": 2, "model": "money.caixa", "fields": {"caixa": "Divers\u00e3o"}}, {"pk": 1, "model": "money.caixa", "fields": {"caixa": "Energia El\u00e9trica"}}, {"pk": 5, "model": "money.caixa", "fields": {"caixa": "Impostos"}}, {"pk": 3, "model": "money.caixa", "fields": {"caixa": "Internet"}}, {"pk": 6, "model": "money.caixa", "fields": {"caixa": "Sal\u00e1rio"}}, {"pk": 2, "model": "money.formapagamento", "fields": {"forma_pagamento": "Cart\u00e3o de Cr\u00e9dito"}}, {"pk": 3, "model": "money.formapagamento", "fields": {"forma_pagamento": "Cart\u00e3o de D\u00e9bito"}}, {"pk": 5, "model": "money.formapagamento", "fields": {"forma_pagamento": "DOC"}}, {"pk": 7, "model": "money.formapagamento", "fields": {"forma_pagamento": "Dep\u00f3sito"}}, {"pk": 1, "model": "money.formapagamento", "fields": {"forma_pagamento": "Dinheiro"}}, {"pk": 6, "model": "money.formapagamento", "fields": {"forma_pagamento": "TED"}}, {"pk": 4, "model": "money.formapagamento", "fields": {"forma_pagamento": "Transfer\u00eancia entre Contas"}}]
+[
+    {
+        "pk": 1,
+        "model": "money.conta",
+        "fields": {
+            "agencia": "",
+            "variacao": "",
+            "conta": "",
+            "saldo_inicial": "10.0",
+            "nome": "Banco de Brasil"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "money.conta",
+        "fields": {
+            "agencia": "",
+            "variacao": "",
+            "conta": "",
+            "saldo_inicial": "5000",
+            "nome": "Poupan\u00e7a BB"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "money.conta",
+        "fields": {
+            "agencia": "",
+            "variacao": "",
+            "conta": "",
+            "saldo_inicial": "490",
+            "nome": "Unibanco"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "money.credor",
+        "fields": {
+            "credor": "Amazon"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "money.credor",
+        "fields": {
+            "credor": "Linuxmall"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "money.credor",
+        "fields": {
+            "credor": "livrosdeinformatica.com.br"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Alimenta\u00e7\u00e3o"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Combust\u00edvel"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Cursos e Palestras"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Energia El\u00e9trica"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Higiene e Sa\u00fade"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Impostos"
+        }
+    },
+    {
+        "pk": 13,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Internet e Inform\u00e1tica"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Livros e Apostilas"
+        }
+    },
+    {
+        "pk": 14,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "M\u00f3veis e Utens\u00edlios"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Produtos e Acess\u00f3rios"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Sal\u00e1rio"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Taxas Banc\u00e1rias"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Transporte P\u00fablico"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "money.caixa",
+        "fields": {
+            "caixa": "Viagem"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "money.formapagamento",
+        "fields": {
+            "forma_pagamento": "Boleto"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "money.formapagamento",
+        "fields": {
+            "forma_pagamento": "Dep\u00f3sito"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "money.formapagamento",
+        "fields": {
+            "forma_pagamento": "Dinheiro"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "money.formapagamento",
+        "fields": {
+            "forma_pagamento": "Transfer\u00eancia"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "money.formapagamento",
+        "fields": {
+            "forma_pagamento": "Visa"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "money.lancamento",
+        "fields": {
+            "cadastro": "2009-12-06",
+            "caixa": 1,
+            "tipo": "C",
+            "credor": null,
+            "pago": true,
+            "vencimento": "2009-03-01",
+            "forma_pagamento": 1,
+            "valor": "1000.0",
+            "desc": "Salario"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "money.lancamento",
+        "fields": {
+            "cadastro": "2009-12-06",
+            "caixa": 12,
+            "tipo": "D",
+            "credor": 2,
+            "pago": true,
+            "vencimento": "2009-03-25",
+            "forma_pagamento": 5,
+            "valor": "-150.0",
+            "desc": "Livro Code Complete"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "money.lancamento",
+        "fields": {
+            "cadastro": "2009-12-06",
+            "caixa": 12,
+            "tipo": "D",
+            "credor": 2,
+            "pago": true,
+            "vencimento": "2009-03-25",
+            "forma_pagamento": 5,
+            "valor": "-50.0",
+            "desc": "Livro Frameworks para Desenvolvimento PHP"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "money.lancamento",
+        "fields": {
+            "cadastro": "2009-12-06",
+            "caixa": 12,
+            "tipo": "D",
+            "credor": 2,
+            "pago": true,
+            "vencimento": "2009-03-25",
+            "forma_pagamento": 5,
+            "valor": "-70.0",
+            "desc": "Livro PHP Profissional - Aprenda a desenvolver sistemas"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "money.lancamento",
+        "fields": {
+            "cadastro": "2009-12-06",
+            "caixa": 1,
+            "tipo": "C",
+            "credor": null,
+            "pago": true,
+            "vencimento": "2009-03-31",
+            "forma_pagamento": 2,
+            "valor": "1170.0",
+            "desc": "Salario"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "money.lancamento",
+        "fields": {
+            "cadastro": "2009-12-07",
+            "caixa": 1,
+            "tipo": "C",
+            "credor": null,
+            "pago": true,
+            "vencimento": "2009-04-01",
+            "forma_pagamento": 1,
+            "valor": "100.0",
+            "desc": "Outras entradas"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "money.lancamento",
+        "fields": {
+            "cadastro": "2009-12-06",
+            "caixa": 14,
+            "tipo": "D",
+            "credor": 3,
+            "pago": true,
+            "vencimento": "2009-04-10",
+            "forma_pagamento": 1,
+            "valor": "-80",
+            "desc": "Mesa para telefone Artely"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "money.lancamento",
+        "fields": {
+            "cadastro": "2009-12-06",
+            "caixa": 13,
+            "tipo": "D",
+            "credor": null,
+            "pago": true,
+            "vencimento": "2009-04-28",
+            "forma_pagamento": 1,
+            "valor": "-35",
+            "desc": "Teclado Multimidia USB"
+        }
+    }
+]
