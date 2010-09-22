@@ -11,6 +11,11 @@ from django.http import HttpResponse as R
 from django.http import QueryDict
 from django.utils import simplejson
 from django.views.generic.simple import direct_to_template
+from django.shortcuts import render_to_response
+#from django.views.decorators.csrf import csrf_protect
+from django.template import RequestContext
+#from django.core.context_processors import csrf
+#from django.views.decorators.csrf import csrf_exempt
 
 # Imports do Python
 import datetime
@@ -70,7 +75,10 @@ def index(request):
         'LINHAS_POR_GRID': settings.LINHAS_POR_GRID
     }
     # Carrega o template passando as variáveis
-    return direct_to_template(request, 'index.html', extra_context=context)
+    #return direct_to_template(request, 'inex.html', extrnstance=RequestContext(request)a_context=context)
+    #context.update(csrf(request))
+    return render_to_response('index.html', context, context_instance=RequestContext(request))
+    #return R("usuario: %s" % request.user)
 
 
 @login_required
@@ -90,6 +98,7 @@ def new(request):
     return R(json,mimetype='application/json')
 
 
+from utils.restview import login_required as l_required
 class LancamentoRest(RestView):
     """
     Utiliza Restful para CRUD.
@@ -100,7 +109,7 @@ class LancamentoRest(RestView):
     PUT: atualizar um objeto.
     """
 
-    @login_required
+    @l_required
     def GET(self, request):
         """
         Consulta de objetos.
@@ -113,7 +122,7 @@ class LancamentoRest(RestView):
         os objetos ou objetos de acordo com determinados parametros
         passados para a URL (um filtro).
         """
-
+        
         if request.GET.get('id'):
             # Editar um objeto
             try:
@@ -294,9 +303,9 @@ class LancamentoRest(RestView):
                 json.update({'msg': 'Erro inesperado ao tentar executar a consulta %s' % e})
 
         return JsonHttpResponse(json)
+        
 
-
-    @login_required
+    @l_required
     def POST(self, request):
         """
         Cadastra um objeto.
@@ -328,7 +337,7 @@ class LancamentoRest(RestView):
         return JsonHttpResponse(json)
 
 
-    @login_required
+    @l_required
     def DELETE(self, request, id):
         """
         Exclui um objeto a partir do id fornecido.
@@ -344,7 +353,7 @@ class LancamentoRest(RestView):
         return JsonHttpResponse(json)
 
 
-    @login_required
+    @l_required
     def PUT(self, request, id):
         """
         Atualiza o objeto a partir do id fornecido.
@@ -375,9 +384,6 @@ class LancamentoRest(RestView):
             json.update({'msg': 'Erro desconhecido ao tentar atualizar os dados %s' % e})
 
         return JsonHttpResponse(json)
-
-
-
 
 
 

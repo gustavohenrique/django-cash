@@ -64,7 +64,7 @@ class LancamentoForm(ModelForm):
     
     class Meta:
         model = Lancamento
-        fields = ['vencimento','desc','valor','tipo','forma_pagamento','credor','caixa','tags','pago']
+        fields = ['desc','vencimento','valor','tipo','forma_pagamento','credor','caixa','tags','pago']
     
     def __init__(self, *args, **kwargs):
         super(LancamentoForm, self).__init__(*args, **kwargs)
@@ -85,7 +85,7 @@ class LancamentoFormEdit(LancamentoForm):
     
     class Meta:
         model = Lancamento
-        fields = ['id','vencimento','desc','valor','tipo','forma_pagamento','credor','caixa','tags','pago']
+        fields = ['id','desc','vencimento','valor','tipo','forma_pagamento','credor','caixa','tags','pago']
     
     def as_ext(self):
         return mark_safe(simplejson.dumps(self,cls=ExtJSONEncoder))

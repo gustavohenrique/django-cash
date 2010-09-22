@@ -16,7 +16,11 @@ Ext.onReady( function() {
       inputType: 'password',
       fieldLabel: '{{ form.password.label }}',
       name: '{{ form.password.name }}'
-    }],
+	},{
+      xtype: 'hidden',
+	  value: 'd8f5150fe2991777d1ca317206c80095',
+	  name: 'csrfmiddlewaretoken'
+	}],
     buttons: [{
       text: 'Ok',
       handler: function() {
@@ -66,6 +70,5 @@ Ext.onReady( function() {
 {% endblock %}
 
 {% block main %}
-
 
 {% endblock %}

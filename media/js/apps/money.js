@@ -32,8 +32,8 @@ function showGridLancamento(params) {
                 id: 'id',
                 fields: [
                     { name: 'id' },
-                    { name: 'vencimento', type: 'date', dateFormat: 'd/m/Y' },
                     { name: 'desc' },
+                    { name: 'vencimento', type: 'date', dateFormat: 'd/m/Y' },
                     { name: 'tipo' },
                     { name: 'pago' },
                     { name: 'valor' },
@@ -88,14 +88,14 @@ function showGridLancamento(params) {
                         header: 'ID',
                         hidden: true
                     }, {
+                        header: 'Descrição',
+                        dataIndex: 'desc',
+                        id: 'desc',
+                    }, {
                         header: 'Data',
                         dataIndex: 'vencimento',
                         renderer: Ext.util.Format.dateRenderer('d/m/Y'),
                         sortable: true
-                    }, {
-                        header: 'Descrição',
-                        dataIndex: 'desc',
-                        id: 'desc',
                     }, {
                         header: 'Pago',
                         dataIndex: 'pago',
