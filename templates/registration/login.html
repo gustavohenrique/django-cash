@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block js %}
+
+function get_csrf_token(token) {
+    return token.slice(81,113);
+}
+
 Ext.onReady( function() {
 
   var loginForm = new Ext.FormPanel({
@@ -16,11 +21,12 @@ Ext.onReady( function() {
       inputType: 'password',
       fieldLabel: '{{ form.password.label }}',
       name: '{{ form.password.name }}'
-	},{
+    },{
       xtype: 'hidden',
-	  value: 'd8f5150fe2991777d1ca317206c80095',
-	  name: 'csrfmiddlewaretoken'
-	}],
+      value: '',
+      name: 'csrfmiddlewaretoken',
+      id: 'token',
+    }],
     buttons: [{
       text: 'Ok',
       handler: function() {
@@ -65,6 +71,8 @@ Ext.onReady( function() {
   {% if form.errors %}
     Ext.Msg.alert('Error','<span style="color:red">Usuário ou senha incorretos.</span>');
   {% endif %}
+
+  $("#token").val( get_csrf_token("{% csrf_token %}") );
 });
 
 {% endblock %}
@@ -72,3 +80,4 @@ Ext.onReady( function() {
 {% block main %}
 
 {% endblock %}
+
