@@ -59,10 +59,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'djangocash.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, 'templates'),
+    os.path.join(PROJECT_DIR, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -76,6 +76,9 @@ INSTALLED_APPS = (
      'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    #'piston',
+    'djangorestframework',
+    'core',
 )
 
 LOGGING = {
