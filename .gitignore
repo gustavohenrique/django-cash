@@ -1,0 +1,9 @@
+*.pyc
+*.pyo
+*~
+*.swp
+*.swo
+*.bak
+*.db
+*.sqlite
+.DS_Store
