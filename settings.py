@@ -65,6 +65,16 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),
 )
 
+FIXTURE_DIRS = ( 
+    os.path.join(PROJECT_DIR, 'fixtures'),
+)
+
+LOGIN_URL = '/auth/login/'
+LOGOUT_URL = '/auth/logout/'
+LOGIN_REDIRECT_URL = '/core/'
+DATETIME_FORMAT = 'd/m/Y - H:i:s'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',

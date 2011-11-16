@@ -1,1 +1,1 @@
-from tests_models import *
+from test_views import *
