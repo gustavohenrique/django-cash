@@ -499,6 +499,7 @@ class ReadModelMixin(object):
                     del filtered_keywords[BaseRenderer._FORMAT_QUERY_PARAM]
                 self.model_instance = model.objects.get(**filtered_keywords)
         except model.DoesNotExist:
+            #raise ErrorResponse(status.HTTP_404_NOT_FOUND, {"data":[],"success":"false"})
             raise ErrorResponse(status.HTTP_404_NOT_FOUND)
 
         return self.model_instance

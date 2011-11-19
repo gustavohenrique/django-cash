@@ -1,19 +1,14 @@
-from djangorestframework.views import View
-from djangorestframework.authentication import UserLoggedInAuthentication
-from djangorestframework.response import Response
-from djangorestframework import status
+from djangorestframework import status, permissions
+from djangorestframework.response import ErrorResponse
+from djangorestframework.views import InstanceModelView
 
-def login_required(request):
-    auth = UserLoggedInAuthentication()
-    auth.authenticate(request)
 
-class AccountView(View):
-
-    def get(self, request):
-        auth = UserLoggedInAuthentication(self)
-        user = auth.authenticate(request)
-        if user is None:
-            return Response(status.HTTP_403_NOT_FOUND) 
-
-        return 'ddsfsdfs'
+class ExtJsInstanceModelView(InstanceModelView):
+    permissions = (permissions.IsAdminUser, )
+    
+    def get(self, request, *args, **kwargs):
+        try:
+            return super(self.__class__, self).get(request, *args, **kwargs)
+        except:
+            raise ErrorResponse(status.HTTP_404_NOT_FOUND, {'total':'0', 'data':[], 'success':'false'})
 

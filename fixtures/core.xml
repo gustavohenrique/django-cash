@@ -5,21 +5,21 @@
         <field type="CharField" name="name">Itau</field>
         <field type="CharField" name="agency">3575</field>
         <field type="CharField" name="number">67546-5</field>
-        <field type="DecimalField" name="initital">0</field>
+        <field type="DecimalField" name="initial">0</field>
     </object>
     <object pk="2" model="core.account">
         <field to="auth.user" name="owner" rel="ManyToOneRel">1</field>
         <field type="CharField" name="name">Banco do Brasil</field>
         <field type="CharField" name="agency">7876-5</field>
         <field type="CharField" name="number">98871-X</field>
-        <field type="DecimalField" name="initital">1</field>
+        <field type="DecimalField" name="initial">1</field>
     </object>
     <object pk="3" model="core.account">
         <field to="auth.user" name="owner" rel="ManyToOneRel">1</field>
         <field type="CharField" name="name">Banco do Brasil</field>
         <field type="CharField" name="agency">7876-5</field>
         <field type="CharField" name="number">87936-1</field>
-        <field type="DecimalField" name="initital">2</field>
+        <field type="DecimalField" name="initial">2</field>
     </object>
     <object pk="1" model="core.payee">
         <field to="auth.user" name="owner" rel="ManyToOneRel">1</field>
@@ -70,16 +70,16 @@
         <field to="core.category" name="parent" rel="ManyToOneRel"><None></None></field>
     </object>
     <object pk="1" model="core.paymenttype">
-        <field type="CharField" name="desc">Bill</field>
+        <field type="CharField" name="name">Bill</field>
     </object>
     <object pk="2" model="core.paymenttype">
-        <field type="CharField" name="desc">Credit Card</field>
+        <field type="CharField" name="name">Credit Card</field>
     </object>
     <object pk="3" model="core.paymenttype">
-        <field type="CharField" name="desc">Debit</field>
+        <field type="CharField" name="name">Debit</field>
     </object>
     <object pk="4" model="core.paymenttype">
-        <field type="CharField" name="desc">Transfer</field>
+        <field type="CharField" name="name">Transfer</field>
     </object>
     <object pk="1" model="core.transaction">
         <field to="auth.user" name="owner" rel="ManyToOneRel">1</field>
@@ -87,7 +87,7 @@
         <field to="core.payee" name="payee" rel="ManyToOneRel">5</field>
         <field to="core.account" name="account" rel="ManyToOneRel">1</field>
         <field to="core.paymenttype" name="payment_type" rel="ManyToOneRel">1</field>
-        <field type="CharField" name="desc">Freelancer service</field>
+        <field type="CharField" name="description">Freelancer service</field>
         <field type="DecimalField" name="amount">2000</field>
         <field type="DateField" name="date">2011-01-27</field>
     </object>
@@ -97,7 +97,7 @@
         <field to="core.payee" name="payee" rel="ManyToOneRel">1</field>
         <field to="core.account" name="account" rel="ManyToOneRel">1</field>
         <field to="core.paymenttype" name="payment_type" rel="ManyToOneRel"><None></None></field>
-        <field type="CharField" name="desc">Salary 2011</field>
+        <field type="CharField" name="description">Salary 2011</field>
         <field type="DecimalField" name="amount">10000</field>
         <field type="DateField" name="date">2011-01-05</field>
     </object>
@@ -107,7 +107,7 @@
         <field to="core.payee" name="payee" rel="ManyToOneRel">2</field>
         <field to="core.account" name="account" rel="ManyToOneRel">2</field>
         <field to="core.paymenttype" name="payment_type" rel="ManyToOneRel"><None></None></field>
-        <field type="CharField" name="desc">Internet service provider</field>
+        <field type="CharField" name="description">Internet service provider</field>
         <field type="DecimalField" name="amount">-100</field>
         <field type="DateField" name="date">2011-01-15</field>
     </object>
@@ -117,7 +117,7 @@
         <field to="core.payee" name="payee" rel="ManyToOneRel">6</field>
         <field to="core.account" name="account" rel="ManyToOneRel">1</field>
         <field to="core.paymenttype" name="payment_type" rel="ManyToOneRel"><None></None></field>
-        <field type="CharField" name="desc">Travel to New york</field>
+        <field type="CharField" name="description">Travel to New york</field>
         <field type="DecimalField" name="amount">-2000</field>
         <field type="DateField" name="date">2011-06-12</field>
     </object>
@@ -127,7 +127,7 @@
         <field to="core.payee" name="payee" rel="ManyToOneRel"><None></None></field>
         <field to="core.account" name="account" rel="ManyToOneRel">1</field>
         <field to="core.paymenttype" name="payment_type" rel="ManyToOneRel">4</field>
-        <field type="CharField" name="desc">Transfer to saving account</field>
+        <field type="CharField" name="description">Transfer to saving account</field>
         <field type="DecimalField" name="amount">-3000</field>
         <field type="DateField" name="date">2011-01-28</field>
     </object>
@@ -137,7 +137,7 @@
         <field to="core.payee" name="payee" rel="ManyToOneRel"><None></None></field>
         <field to="core.account" name="account" rel="ManyToOneRel">3</field>
         <field to="core.paymenttype" name="payment_type" rel="ManyToOneRel">4</field>
-        <field type="CharField" name="desc">Transfer to saving account</field>
+        <field type="CharField" name="description">Transfer to saving account</field>
         <field type="DecimalField" name="amount">3000</field>
         <field type="DateField" name="date">2011-01-28</field>
     </object>
@@ -147,7 +147,7 @@
         <field to="core.payee" name="payee" rel="ManyToOneRel">3</field>
         <field to="core.account" name="account" rel="ManyToOneRel">1</field>
         <field to="core.paymenttype" name="payment_type" rel="ManyToOneRel"><None></None></field>
-        <field type="CharField" name="desc">Hosting for gustavohenrique.net</field>
+        <field type="CharField" name="description">Hosting for gustavohenrique.net</field>
         <field type="DecimalField" name="amount">-9.9</field>
         <field type="DateField" name="date">2011-01-20</field>
     </object>
@@ -157,7 +157,7 @@
         <field to="core.payee" name="payee" rel="ManyToOneRel">4</field>
         <field to="core.account" name="account" rel="ManyToOneRel">1</field>
         <field to="core.paymenttype" name="payment_type" rel="ManyToOneRel">1</field>
-        <field type="CharField" name="desc">Cheeseburguer</field>
+        <field type="CharField" name="description">Cheeseburguer</field>
         <field type="DecimalField" name="amount">-5.75</field>
         <field type="DateField" name="date">2011-01-28</field>
     </object>
