@@ -8,6 +8,7 @@ class AccountResource(ModelResource):
     model = Account
     fields = ('id', 'name', 'agency', 'number', 'initial')
     ordering = ('name',)
+    allowed_methods = ('GET', 'POST')
 
     def filter_response(self, obj):
         """ 
