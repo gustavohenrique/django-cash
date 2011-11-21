@@ -4,7 +4,7 @@ import datetime
 
 
 class Account(models.Model):
-    owner   = models.ForeignKey(User)
+    user    = models.ForeignKey(User)
     name    = models.CharField(max_length=50)
     agency  = models.CharField(max_length=50, blank=True, null=True)
     number  = models.CharField(max_length=50, blank=True, null=True)
@@ -15,8 +15,8 @@ class Account(models.Model):
 
     
 class Payee(models.Model):
-    owner = models.ForeignKey(User)
-    name  = models.CharField(max_length=200, unique=True)
+    user = models.ForeignKey(User)
+    name = models.CharField(max_length=200, unique=True)
 
     def __unicode__(self):
         return self.name
@@ -38,7 +38,7 @@ class PaymentType(models.Model):
 
 
 class Transaction(models.Model):
-    owner        = models.ForeignKey(User)
+    user         = models.ForeignKey(User)
     category     = models.ForeignKey(Category, blank=True, null=True)
     payee        = models.ForeignKey(Payee, blank=True, null=True)
     account      = models.ForeignKey(Account)
